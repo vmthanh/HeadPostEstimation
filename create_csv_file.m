@@ -7,7 +7,8 @@ for i=1:sz(1)
     if strcmp(file_name,'.') || strcmp(file_name,'..')
         continue;
     end
-    person_id = strcat(folder_path,'/',file_name(1:13));
+    file_path = strcat(folder_path,'/',file_name);
+    person_id = file_name(1:13);
     idx = strfind(file_name(15:length(file_name)),'-');
     if isempty(idx)
         idx =  strfind(file_name(15:length(file_name)),'+');
@@ -15,7 +16,6 @@ for i=1:sz(1)
     idx_dot = strfind(file_name,'.');
     vertical_pose = file_name(14:(14+idx(1)-1));
     horizontal_pose = file_name((14+idx(1)):idx_dot(1)-1);
-    fprintf(fileId,'%s;%s;%s\r\n',person_id,vertical_pose,horizontal_pose);
-
+    fprintf(fileId,'%s;%s;%s;%s\r\n',file_path,person_id,vertical_pose,horizontal_pose);
 end
 fclose(fileId);
